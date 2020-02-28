@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="src/lib/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_974537_iej6srosjw.css">
+    <title>ztree demo</title>
+</head>
+<style>
+    .wrapper {
+        display: flex;
+
+    }
+
+    .wrapper>div {
+        flex: 1;
+    }
+
+    .index7 {
+        border: 2px solid #ccc
+    }
+
+    .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: middle
+    }
+
+    #treeDemo .iconfont {
+        top: 7px;
+        position: relative;
+    }
+
+    #treeDemo .iconEdit,
+    #treeDemo .iconfolder {
+        color: #3e75ff;
+    }
+
+    #treeDemo .iconRemove {
+        color: #ff5168;
+    }
+    .checkbox_true_disable::before{
+        position: absolute;
+        content: "\2714";
+        width: 1em;
+        height: 1em;
+        border: 1px solid #999;
+        color: #999;
+        padding: 6px 2px 0px 1px;
+    }
+    .checkbox_false_disable::before{
+        position: absolute;
+        content: "";
+        width: 1em;
+        height: 1em;
+        border: 1px solid #999;
+        color: #ccc;
+        padding: 0 2px;
+        box-shadow: 0 0 6px #eaeaea inset;
+    }
+    .checkbox_true_full::before,
+    .checkbox_true_full_focus::before {
+        position: absolute;
+        content: "\2714";
+        width: 1em;
+        height: 1em;
+        border: 1px solid #666;
+        color: #3e75ff;
+        padding: 6px 2px 0px 1px;
+    }
+
+    .checkbox_true_part::before,
+    .checkbox_true_part_focus::before {
+        position: absolute;
+        content: "\2714";
+        width: 1em;
+        height: 1em;
+        border: 1px solid #666;
+        color: #3e75ff;
+        padding: 6px 2px 0px 1px;
+        box-shadow: 0 0 6px #666 inset;
+    }
+
+    .checkbox_false::before,
+    .checkbox_false_full::before,
+    .checkbox_false_full_focus::before {
+        position: absolute;
+        content: "";
+        width: 1em;
+        height: 1em;
+        border: 1px solid #666;
+        color: #3e75ff;
+        padding: 0 2px;
+        box-shadow: 0 0 6px #eaeaea inset;
+    }
+
+    .roots_open::before,
+    .root_open::before,
+    .center_open::before,
+    .bottom_open::before {
+        position: absolute;
+        content: "-";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        background: #eee;
+        padding-top: 6px;
+    }
+
+    .roots_close::before,
+    .root_close::before,
+    .center_close::before,
+    .bottom_close::before {
+        position: absolute;
+        content: "+";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        background: #eee;
+        padding-top: 6px;
+    }
+
+    .ztree li span.button {
+        background-image: none !important;
+    }
+
+    /* 修改尺寸 */
+    .ztree * {
+        font-size: 16px;
+    }
+    .ztree li{
+        line-height: 1.5em;
+    }
+    .ztree li a.curSelectedNode {
+        height: 100%;
+    }
+
+    .ztree li span.button.chk {
+        width: 1em;
+        height: 1em;
+    }
+    .ztree li span.button.edit, .ztree li span.button.remove{
+        vertical-align: middle;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <div class="left">
+            <ul id='treeDemo' class="ztree"></ul>
+        </div>
+        <div class="right">
+            <div class="index9">
+                <h4>基本的编辑功能</h4>
+                <label for="remove">
+                    <input type="checkbox" id="remove" class="checkbox first" checked><span>显示删除按钮</span>
+                </label>
+                <br>
+                <label for="rename">
+                    <input type="checkbox" id="rename" class="checkbox first" checked><span>显示编辑按钮</span>
+                </label>
+                <br>
+                remove按钮的title提示： <input type="text" id="removeTitle" value="删除"> <br>
+                rename按钮的title提示： <input type="text" id="renameTitle" value="编辑">
+
+            </div>
+
+            <div class="index11">
+                <a href="#" id="addrootParent" title="增加顶层文件夹" onclick="return false">增加顶层文件夹</a>
+                <a href="#" id="addParent" title="增加文件夹" onclick="return false">增加文件夹</a>
+                <a href="#" id="addLeaf" title="增加文件" onclick="return false">增加文件</a>
+                <span class="fullCheckSty"></span>
+                <span class="halfCheckSty"></span>
+                <span class="falseCheckSty"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="src/lib/jquery-3.4.1.min.js"></script>
+    <script src="src/lib/ztree/js/jquery-1.4.4.min.js"></script>
+    <script src="src/lib/ztree/js/jquery.ztree.all.js"></script>
+    <script src="/src/lib/require.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <!-- <script src="index2.js"></script> -->
+    <!-- <script src="index3.js"></script> -->
+    <!-- <script src="index4.js"></script> -->
+    <!-- <script src="index5.js"></script> -->
+
+    <!-- 异步调用数据并对返回的数据做处理 index6.js -->
+    <!-- <script src="index6.js"></script>  -->
+
+    <!-- 点击事件index7.js  -->
+    <!-- <script src="index7.js"></script>  -->
+
+    <!-- 复选框 -->
+    <!-- <script src="index8.js"></script>  -->
+
+    <!-- 基本增删改 -->
+    <!-- <script src="index9.js"></script>  -->
+
+    <!-- 高级的增删改 -->
+    <!-- <script src="index10.js"></script>  -->
+
+    <!-- 增删改 增加是单独的按钮 -->
+    <script src="index11.js"></script>
+</body>
+
+</html>
